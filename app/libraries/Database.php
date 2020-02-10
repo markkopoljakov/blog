@@ -51,7 +51,7 @@ public function bind($param, $value, $type=null){
     $this->stmt->bindValue($param, $value, $type);
 }
 public function execute(){
-       $this->stmt->execute();
+     return  $this->stmt->execute();
 }
 public function getAll(){
     $this->execute();

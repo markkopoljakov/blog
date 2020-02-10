@@ -24,9 +24,6 @@ class Core
         $this->params = $url ? array_values($url) : array();
         // call a callback function with url parameters - controller, method and params
         call_user_func_array(array($this->currentController, $this->currentMethod), array($this->params));
-        echo '<pre>';
-        print_r($url);
-        echo '</pre>';
     }
 
     public function getUrl(){
