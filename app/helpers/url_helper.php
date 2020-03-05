@@ -1,4 +1,4 @@
 <?php
 function redirect($link){
-    header('Location: '.URLROOT.'/'. $link);
+    header('Location: '.URLROOT.'/'.$link);
 }
