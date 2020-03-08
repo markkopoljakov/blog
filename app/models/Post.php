@@ -12,7 +12,7 @@ class Post
 
     public function getPosts(){
         $this->db->query('SELECT *,
-                            posts.posts_id as postId,
+                            posts.post_id as postId,
                             users.user_id as userId,
                             posts.post_created as postCreated
                             FROM posts
@@ -23,14 +23,13 @@ class Post
         return $posts;
     }
         public function getPostById($id){
-        $this->db->query('SELECT * FROM posts WHERE posts_id=:id');
+        $this->db->query('SELECT * FROM posts WHERE post_id=:id');
         $this->db->bind(':id', $id);
         $post = $this->db->getOne();
         return $post;
     }
-
     public function editPost($data){
-        $this->db->query('UPDATE posts SET post_title=:title, post_content=:content WHERE posts_id=:id');
+        $this->db->query('UPDATE posts SET post_title=:title, post_content=:content WHERE post_id=:id');
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':content', $data['content']);
@@ -43,7 +42,7 @@ class Post
     }
 
     public function deletePost($id){
-        $this->db->query('DELETE FROM posts WHERE posts_id=:id');
+        $this->db->query('DELETE FROM posts WHERE post_id=:id');
         $this->db->bind(':id', $id);
         $result = $this->db->execute();
         if($result){
