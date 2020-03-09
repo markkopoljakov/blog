@@ -41,7 +41,7 @@ class Tag
         }
     }
     public function editTag($data){
-        $this->db->query('UPDATE tags SET info=:title, color=:color WHERE tag_id=:id');
+        $this->db->query('UPDATE tags SET info=:info, color=:color WHERE tag_id=:id');
         $this->db->bind(':id', $data['id']);
         $this->db->bind(':info', $data['info']);
         $this->db->bind(':color', $data['color']);
@@ -54,10 +54,10 @@ class Tag
     }
 
     public function addTag($data){
-        $this->db->query('INSERT INTO tags (info, color, user_id) VALUES(:info, :color, :user_id)');
+        $this->db->query('INSERT INTO tags (info, user_id, color) VALUES(:info, :user_id, :color)');
         $this->db->bind(':info', $data['info']);
-        $this->db->bind(':color', $data['color']);
         $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':color', $data['color']);
         $result = $this->db->execute();
         if($result){
             return true;

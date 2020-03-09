@@ -50,7 +50,7 @@ class Posts extends Controller
             if(empty($data['title_err']) and empty($data['content_err'])){
                 if($this->postModel->editPost($data)){
                     msg('post_message', 'Post Updated');
-                    redirect('posts');
+                    redirect('posts/edit');
                 } else {
                     die('Something went wrong');
                 }
@@ -67,7 +67,7 @@ class Posts extends Controller
                 'title' => $post->post_title,
                 'content' => $post->post_content
             );
-            $this->view('posts/edit', $data);
+            $this->view('posts/index', $data);
         }
     }
 

@@ -23,69 +23,27 @@ class Tags extends Controller
         $tag = $this->tagModel->getTagId($id);
         $data = array(
             'tag' => $tag
+
         );
-        $this->view('tags', $data);
+        $this->view('tags/show', $data);
     }
-    public function edit($id){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
-            $data = array(
-                'id' => $id,
-                'info' => trim($_POST['info']),
-                'color' => trim($_POST['color']),
-                'user_id' => $_SESSION['user_id'],
-                'info_err' => '',
-                'color_err' => ''
-            );
-
-            if(empty($data['info'])){
-                $data['info_err'] = 'Please enter info';
-            }
-            if(empty($data['color'])){
-                $data['color_err'] = 'Please enter body text';
-            }
-
-            if(empty($data['info_err']) and empty($data['color_err'])){
-                if($this->tagModel->editTag($data)){
-                    msg('tag_message', 'tag Updated');
-                    redirect('tags');
-                } else {
-                    die('Something went wrong');
-                }
-            } else {
-                $this->view('tags', $data);
-            }
-        } else {
-            $tag = $this->tagModel->getTagId($id);
-            if($tag->user_id != $_SESSION['user_id']){
-                redirect('tags');
-            }
-            $data = array(
-                'id' => $id,
-                'info' => $tag->tag_info,
-                'color' => $tag->tag_color
-            );
-            $this->view('tags', $data);
-        }
-    }
-
 
     public function delete($id){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $tag = $this->tagModel->getTagId($id);
             if($tag->user_id != $_SESSION['user_id']){
-                redirect('tags');
+                redirect('tags/delete');
             }
             if($this->tagModel->deleteTag($id)){
                 msg('tag_message', 'Tag Removed');
-                redirect('tags');
+                redirect('tags/delete');
             } else {
                 die('Something went wrong');
             }
         } else {
-            redirect('tags');
+            redirect('tags/delete');
         }
+
     }
 
     public function add(){
@@ -109,19 +67,19 @@ class Tags extends Controller
             if(empty($data['info_err']) and empty($data['color_err'])){
                 if($this->tagModel->addTag($data)){
                     msg('tag_message', 'Tag Added');
-                    redirect('tags');
+                    redirect('tags/index');
                 } else {
                     die('Something went wrong');
                 }
             } else {
-                $this->view('tags', $data);
+                $this->view('tags/index', $data);
             }
         } else {
             $data = array(
                 'info' => '',
                 'color' => ''
             );
-            $this->view('tags', $data);
+            $this->view('tags/add', $data);
         }
     }
 
