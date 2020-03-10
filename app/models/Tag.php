@@ -23,6 +23,23 @@ class Tag
         $tags = $this->db->getAll();
         return $tags;
     }
+
+    public function getTag($id){
+        $this->db->query('SELECT *,
+                            tags.tag_id as tagId,
+                            tags.user_id as userId,
+                            tags.color as tagColor,
+                            tags.info as tagInfo,
+                            tags.time as tagCreated
+                            FROM tags
+                            INNER JOIN tagposts
+                            ON tagposts.tag_id = tags.tag_id
+                            where tagposts.post_id=:id
+                            ORDER BY tags.time DESC');
+        $this->db->bind(':id', $id);
+        $tags = $this->db->getAll();
+        return $tags;
+    }
     public function getTagId($id){
         $this->db->query('SELECT * FROM tags WHERE tag_id=:id');
         $this->db->bind(':id', $id);

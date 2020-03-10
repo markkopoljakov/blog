@@ -9,12 +9,24 @@ class Posts extends Controller
     public function __construct()
     {
         $this->postModel = $this->model('Post');
+        $this->tagModel = $this->model('Tag');
     }
 
     public function index() {
         $posts = $this->postModel->getPosts();
+        foreach ($posts as $post) {
+            $post->tags = $this-> tagModel->getTag($post->postId);
+        }
         $data = array(
             'posts' => $posts
+        );
+        $this->view('posts/index', $data);
+    }
+
+    public function tag() {
+        $post = $this->postModel->getTags();
+        $data = array(
+            'posts' => $post
         );
         $this->view('posts/index', $data);
     }

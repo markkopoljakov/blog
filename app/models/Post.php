@@ -22,6 +22,13 @@ class Post
         $posts = $this->db->getAll();
         return $posts;
     }
+    public function getTagId($id){
+        $this->db->query('SELECT * FROM tags WHERE tag_id=:id');
+        $this->db->bind(':id', $id);
+        $tag = $this->db->getOne();
+        return $tag;
+    }
+
         public function getPostById($id){
         $this->db->query('SELECT * FROM posts WHERE post_id=:id');
         $this->db->bind(':id', $id);

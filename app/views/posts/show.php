@@ -9,7 +9,7 @@
 <?php if($data['post']->user_id == $_SESSION['user_id']) :?>
     <div class="row justify-content-around">
         <div class="col-8">
-            <a href="<?php echo URLROOT?>/posts/show/<?php echo $data['post']->post_id; ?>" class="btn btn-success">Edit</a>
+            <a href="<?php echo URLROOT; ?>/posts/show/<?php echo $data['post']->post_id; ?>" class="btn btn-success">Edit</a>
         </div>
         <div class="col-4">
             <form action="<?php echo URLROOT; ?>/posts/delete/<?php echo $data['post']->post_id; ?>" method="post">
