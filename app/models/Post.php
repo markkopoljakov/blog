@@ -22,12 +22,6 @@ class Post
         $posts = $this->db->getAll();
         return $posts;
     }
-    public function getTagId($id){
-        $this->db->query('SELECT * FROM tags WHERE tag_id=:id');
-        $this->db->bind(':id', $id);
-        $tag = $this->db->getOne();
-        return $tag;
-    }
 
         public function getPostById($id){
         $this->db->query('SELECT * FROM posts WHERE post_id=:id');
@@ -48,7 +42,7 @@ class Post
         }
     }
 
-    public function deletePost($id){
+        public function deletePost($id){
         $this->db->query('DELETE FROM posts WHERE post_id=:id');
         $this->db->bind(':id', $id);
         $result = $this->db->execute();
@@ -64,6 +58,17 @@ class Post
         $this->db->bind(':title', $data['title']);
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':content', $data['content']);
+        $result = $this->db->execute();
+        if($result){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function addtag($data){
+        $this->db->query('INSERT INTO tagposts (post_id, tag_id) VALUES(:post_id, :tag_id)');
+        $this->db->bind(':post_id', $data['post_id']);
+        $this->db->bind(':tag_id', $data['tag_id']);
         $result = $this->db->execute();
         if($result){
             return true;

@@ -1,5 +1,6 @@
 <?php require_once APPROOT . '/views/inc/header.php'; ?>
     <h1>Tags</h1>
+    <a href="<?php echo URLROOT?>tags" class="btn btn-info">Back</a>
     <form action="<?php echo URLROOT; ?>/tags/add" method="post" >
         <div class="form-group">
             <label>Tag-Name: </label>
